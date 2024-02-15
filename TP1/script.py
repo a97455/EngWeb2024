@@ -112,9 +112,6 @@ for filename in os.listdir(diretoria_xml):
                                     legenda = legenda_element.text.strip()  # Obtém o texto da legenda
                                     break  # Para a iteração assim que a legenda correspondente for encontrada
                 
-                # Debugging: imprime os valores de img_path_atuais e legenda_atuais
-                print(f'Imagem: {img_path}, Legenda: {legenda}')
-                
                 # Escreve a tag da imagem com a legenda
                 f.write(f'<div class="image-with-caption">\n')
                 f.write(f'    <img src="{img_path}" alt="Imagem da Rua">\n')
@@ -188,9 +185,6 @@ for filename in os.listdir(diretoria_xml):
             for img_path_atuais in rua_imagens_atuais:
                 legenda_atuais =  f' {nome_rua} '
 
-                # Debugging: imprime os valores de img_path_atuais e legenda_atuais
-                print(f'Imagem: {img_path_atuais}, Legenda: {legenda_atuais}')
-
                 # Escreve a tag da imagem com a legenda
                 f.write('<div class="image-with-caption">\n')
                 f.write(f'    <img src="{img_path_atuais}" alt="Imagem da Rua">\n')
@@ -206,5 +200,3 @@ for filename in os.listdir(diretoria_xml):
 
             # Escreve o fim do HTML
             f.write('</body>\n</html>')
-
-        print(f"Arquivo HTML para '{filename}' criado e movido para '{output_folder}'.")
