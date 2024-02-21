@@ -13,61 +13,87 @@ for filename in os.listdir(diretoria_xml):
     if filename.endswith('.xml'):
         caminho_arquivo_xml = os.path.join(diretoria_xml, filename)
 
-        # Parse do arquivo XML
+        # Parse the XML file
         tree = ET.parse(caminho_arquivo_xml)
         root = tree.getroot()
 
-        # Escreve o título do HTML com o número e nome da rua
+        # Write the HTML title with the street number and name
         numero_rua_element = root.find('./meta/número')
         numero_rua = numero_rua_element.text if numero_rua_element is not None else "Número da rua não encontrado"
 
         nome_rua_element = root.find('./meta/nome')
         nome_rua = nome_rua_element.text if nome_rua_element is not None else "Nome da rua não encontrado"
 
-        # Abre o arquivo HTML para escrita
+        # Open the HTML file for writing
         html_file = os.path.join(output_folder, f'rua{numero_rua}.html')
         with open(html_file, 'w', encoding='utf-8') as f:
-            # Escreve o cabeçalho do HTML
-            f.write('<!DOCTYPE html>\n<html>\n<head>\n<meta charset="UTF-8">\n<title>Informação da Rua</title>\n</head>\n<body>\n')
-            # Adiciona o estilo CSS
+            # Write the HTML header
+            f.write('<!DOCTYPE html>\n<html>\n<head>\n<meta charset="UTF-8">\n<title>Informação da Rua</title>\n')
+            # Add CSS style
             f.write('<style>\n')
             f.write('body {\n')
             f.write('    font-family: Arial, sans-serif;\n')
             f.write('    margin: 0;\n')
             f.write('    padding: 0;\n')
+            f.write('    background-color: #f8f9fa;\n')  # Changed background color
+            f.write('}\n')
+            f.write('h1 {\n')
+            f.write('    text-align: center;\n')  # Centered the heading
+            f.write('    padding: 20px;\n')  # Added padding
+            f.write('    background-color: #343a40;\n')  # Changed heading background color
+            f.write('    color: #ffffff;\n')  # Changed heading text color
+            f.write('}\n')
+            f.write('.container {\n')
+            f.write('    max-width: 175px;\n')
+            f.write('    margin: 20px auto;\n')
+            f.write('    padding: 20px;\n')
+            f.write('    background-color: #ffffff;\n')  # Changed container background color
+            f.write('    border-radius: 10px;\n')
+            f.write('    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);\n')
             f.write('}\n')
             f.write('.image-container {\n')
-            f.write('    display: flex; /* Usa flexbox para alinhar as imagens */\n')
-            f.write('    flex-wrap: wrap; /* Permite que as imagens quebrem para uma nova linha */\n')
+            f.write('    display: flex;\n')
+            f.write('    flex-wrap: wrap;\n')
+            f.write('    justify-content: center;\n')  # Centered the images
             f.write('}\n')
             f.write('.image-container .image-with-caption {\n')
-            f.write('    width: 50%; /* Define a largura desejada para cada imagem com legenda */\n')
-            f.write('    box-sizing: border-box;\n')
-            f.write('    padding: 10px;\n')
-            f.write('    text-align: center; /* Centraliza o conteúdo dentro do contêiner */\n')
+            f.write('    width: 45%;\n')  # Adjusted image width
+            f.write('    margin: 10px;\n')  # Added margin
+            f.write('    text-align: center;\n')
             f.write('}\n')
             f.write('.image-container img {\n')
-            f.write('    max-width: 100%; /* Garante que a imagem não ultrapasse a largura do contêiner */\n')
-            f.write('    height: auto; /* Mantém a proporção da imagem */\n')
+            f.write('    max-width: 100%;\n')
+            f.write('    height: auto;\n')
             f.write('}\n')
-            f.write('.caption {\n')
-            f.write('    margin-top: 5px;\n')  # Adiciona espaço entre a imagem e a legenda
-            f.write('    font-size: 14px;\n')  # Define o tamanho da fonte da legenda
+            f.write('.image-container .image-with-caption p {\n')
+            f.write('    margin-top: 5px;\n')
+            f.write('    font-size: 14px;\n')
+            f.write('}\n')
+            f.write('.ruas-list {\n')
+            f.write('    list-style-type: none;\n')  # Removed bullet points
+            f.write('    padding: 0;\n')
+            f.write('}\n')
+            f.write('.ruas-list a {\n')
+            f.write('    text-decoration: none;\n')
+            f.write('    color: #007bff;\n')  # Changed link color
+            f.write('}\n')
+            f.write('.ruas-list a:hover {\n')
+            f.write('    text-decoration: underline;\n')  # Underlined link on hover
             f.write('}\n')
             f.write('</style>\n')
             f.write('</head>\n<body>\n')
             f.write(f'<h1>{nome_rua}</h1>\n')
             
-            # Escreve os parágrafos sobre a rua
+            # Write the paragraphs about the street
             paragrafos = root.findall('./corpo/para')
             for para in paragrafos:
                 paragrafo = ''
 
-                # Processa o texto do parágrafo
+                # Process the paragraph text
                 texto = para.text.strip() if para.text else ''
                 paragrafo += texto
 
-                # Processa os elementos filhos do parágrafo
+                # Process the child elements of the paragraph
                 for elemento in para:
                     if elemento.tag == 'lugar':
                         lugar_text = elemento.text if elemento.text else ''
@@ -82,14 +108,14 @@ for filename in os.listdir(diretoria_xml):
                         resto = elemento.text if elemento.text else ''
                         paragrafo += f' {resto} '
                 
-                    # Processa o texto restante após os elementos filho
+                    # Process the remaining text after child elements
                     if elemento.tail:
                         paragrafo += elemento.tail.strip()
                     
-                # Escreve o parágrafo no arquivo HTML
+                # Write the paragraph to the HTML file
                 f.write(f'<p>{paragrafo}</p>\n')
             
-            # Escreve as imagens da rua
+            # Write the images of the street
             rua_imagens = []
             for img in root.findall('.//imagem'):
                 path_element = img.get('path')
@@ -97,11 +123,11 @@ for filename in os.listdir(diretoria_xml):
                 image_path = f"../MapaRuas-materialBase/imagem/{filename}{file_extension}"
                 rua_imagens.append(image_path)
                 
-             # Escreve as imagens no arquivo HTML com as legendas
+             # Write the images to the HTML file with captions
             f.write('<div class="image-container">\n')
             for img_path in rua_imagens:
                 legenda = ''
-                # Encontra a legenda correspondente à imagem atual
+                # Find the caption corresponding to the current image
                 for figura in root.findall('.//figura'):
                         imagem_element = figura.find('imagem')
                         if imagem_element is not None:
@@ -109,19 +135,19 @@ for filename in os.listdir(diretoria_xml):
                             if img_path.endswith(os.path.basename(path_element)):
                                 legenda_element = figura.find('legenda')
                                 if legenda_element is not None:
-                                    legenda = legenda_element.text.strip()  # Obtém o texto da legenda
-                                    break  # Para a iteração assim que a legenda correspondente for encontrada
+                                    legenda = legenda_element.text.strip()  # Get the caption text
+                                    break  # Stop iteration once corresponding caption is found
                 
-                # Escreve a tag da imagem com a legenda
+                # Write the image tag with caption
                 f.write(f'<div class="image-with-caption">\n')
                 f.write(f'    <img src="{img_path}" alt="Imagem da Rua">\n')
                 f.write(f'    <p>{legenda}</p>\n')
                 f.write('</div>\n')
             f.write('</div>\n')
 
-            # Escreve a lista de casas da rua
+            # Write the list of houses on the street
             lista_casas = root.findall('./corpo/lista-casas/casa')
-            # Escreve a lista de casas da rua como uma tabela
+            # Write the list of houses as a table
             f.write('<h2>Casas:</h2>\n')
             f.write('<table border="1">\n')
             f.write('<tr><th>Número da Casa</th><th>Enfiteuta</th><th>foto</th><th>Descrição</th></tr>\n')
@@ -139,11 +165,11 @@ for filename in os.listdir(diretoria_xml):
                 desc_element = casa.find('desc/para')
                 if desc_element is not None:
                     desc = '<desc><para>'
-                    # Processa o texto do parágrafo
+                    # Process the paragraph text
                     texto = desc_element.text.strip() if desc_element.text else ''
                     desc += texto
 
-                    # Processa os elementos filhos do parágrafo
+                    # Process the child elements of the paragraph
                     for elemento in desc_element:
                         if elemento.tag == 'lugar':
                             lugar_text = elemento.text if elemento.text else ''
@@ -158,7 +184,7 @@ for filename in os.listdir(diretoria_xml):
                             resto = elemento.text if elemento.text else ''
                             desc += f' {resto} '
 
-                        # Processa o texto restante após os elementos filho
+                        # Process the remaining text after child elements
                         if elemento.tail:
                             desc += elemento.tail.strip()
                     desc += '</para></desc>'
@@ -169,23 +195,23 @@ for filename in os.listdir(diretoria_xml):
                 f.write('</tr>\n')
             f.write('</table>\n')
             
-            # imagens da vista atual
+            # images of the current view
             rua_imagens_atuais = []
             path_vistas_atuais = "./MapaRuas-materialBase/atual/"
             for img in os.listdir(path_vistas_atuais):
-                # Extrai o número da rua do nome do arquivo usando expressões regulares
+                # Extract the street number from the filename using regular expressions
                 match = re.match(r"(\d+)-", img)
                 if match:
                     numero_arquivo = match.group(1)
                     if numero_arquivo == numero_rua:
                         vista_atual_path = f"{path_vistas_atuais}{img}"
                         rua_imagens_atuais.append("." + vista_atual_path)
-            # Escreve as imagens no arquivo HTML com as legendas
+            # Write the images to the HTML file with captions
             f.write('<div class="image-container">\n')
             for img_path_atuais in rua_imagens_atuais:
                 legenda_atuais =  f' {nome_rua} '
 
-                # Escreve a tag da imagem com a legenda
+                # Write the image tag with the caption
                 f.write('<div class="image-with-caption">\n')
                 f.write(f'    <img src="{img_path_atuais}" alt="Imagem da Rua">\n')
                 f.write(f'    <p>{legenda_atuais}</p>')
@@ -198,5 +224,5 @@ for filename in os.listdir(diretoria_xml):
             f.write('</ul>\n')
             f.write('</div>\n')
 
-            # Escreve o fim do HTML
+            # Write the end of HTML
             f.write('</body>\n</html>')

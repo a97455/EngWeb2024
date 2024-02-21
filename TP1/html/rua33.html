@@ -3,31 +3,55 @@
 <head>
 <meta charset="UTF-8">
 <title>Informação da Rua</title>
-</head>
-<body>
 <style>
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #f8f9fa;
+}
+h1 {
+    text-align: center;
+    padding: 20px;
+    background-color: #343a40;
+    color: #ffffff;
+}
+.container {
+    max-width: 175px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .image-container {
-    display: flex; /* Usa flexbox para alinhar as imagens */
-    flex-wrap: wrap; /* Permite que as imagens quebrem para uma nova linha */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 .image-container .image-with-caption {
-    width: 50%; /* Define a largura desejada para cada imagem com legenda */
-    box-sizing: border-box;
-    padding: 10px;
-    text-align: center; /* Centraliza o conteúdo dentro do contêiner */
+    width: 45%;
+    margin: 10px;
+    text-align: center;
 }
 .image-container img {
-    max-width: 100%; /* Garante que a imagem não ultrapasse a largura do contêiner */
-    height: auto; /* Mantém a proporção da imagem */
+    max-width: 100%;
+    height: auto;
 }
-.caption {
+.image-container .image-with-caption p {
     margin-top: 5px;
     font-size: 14px;
+}
+.ruas-list {
+    list-style-type: none;
+    padding: 0;
+}
+.ruas-list a {
+    text-decoration: none;
+    color: #007bff;
+}
+.ruas-list a:hover {
+    text-decoration: underline;
 }
 </style>
 </head>
