@@ -31,10 +31,9 @@ with open(caminho_arquivo_json, 'r', encoding='utf-8') as json_file:
             f.write('</style>\n')
             f.write('</head>\n<body>\n')
             f.write(f'<h1>{nome}</h1>\n')
-            f.write(f'<p>ID: {id}</p>\n')
-            f.write(f'<p>População: {população}</p>\n')
-            f.write(f'<p>Descrição: {descrição}</p>\n')
-            f.write(f'<p>Distrito: {distrito}</p>\n')
+            f.write(f'<p><strong>Descrição:</strong> {descrição}</p>\n')
+            f.write(f'<p><strong>Distrito</strong>: {distrito}</p>\n')
+            f.write(f'<p><strong>População:</strong> {população}</p>\n')
 
             # Write end of HTML
             f.write('</body>\n</html>')
