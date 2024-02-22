@@ -150,7 +150,7 @@ for filename in os.listdir(diretoria_xml):
             # Write the list of houses as a table
             f.write('<h2>Casas:</h2>\n')
             f.write('<table border="1">\n')
-            f.write('<tr><th>Número da Casa</th><th>Enfiteuta</th><th>foto</th><th>Descrição</th></tr>\n')
+            f.write('<tr><th>Número da Casa</th><th>Enfiteuta</th><th>foro</th><th>Descrição</th></tr>\n')
             for casa in lista_casas:
                 f.write('<tr>\n')
                 numero_casa_element = casa.find('número')
@@ -159,8 +159,8 @@ for filename in os.listdir(diretoria_xml):
                 enfiteuta_element = casa.find('enfiteuta')
                 enfiteuta = enfiteuta_element.text if enfiteuta_element is not None else "Enfiteuta não encontrado"
 
-                foto_element = casa.find('foto')
-                foto = foto_element.text if foto_element is not None else "foto não encontrado"
+                foro_element = casa.find('foro')
+                foro = foro_element.text if foro_element is not None else "Foro não encontrado"
 
                 desc_element = casa.find('desc/para')
                 if desc_element is not None:
@@ -191,7 +191,7 @@ for filename in os.listdir(diretoria_xml):
                 else:
                     desc = "Descrição não encontrada"
 
-                f.write(f'<td>{numero_casa}</td><td>{enfiteuta}</td><td>{foto}</td><td>{desc}</td>\n')
+                f.write(f'<td>{numero_casa}</td><td>{enfiteuta}</td><td>{foro}</td><td>{desc}</td>\n')
                 f.write('</tr>\n')
             f.write('</table>\n')
             
