@@ -1,16 +1,23 @@
-const http = require('http');
-const fs = require('fs');
-const path = require('path');
+var http= require('http')
+var fs = require('fs')
+var url = require('url')
 
-http.createServer((req, res) => {
-    let filePath = '.' + decodeURIComponent(req.url); //faz o decode para nao dar problema para paginas com acentuacao, etc
-    if (filePath === './') {
-        filePath = './index.html';
+http.createServer(function(req,res){
+    var request = url.parse(req.url, true).pathname
+    var filepath = ''
+    if (request =='/'){
+        filepath = 'index.html'
+    }else{
+        filepath = "html/" + request.substring(1) + ".html"
     }
 
-    fs.readFile(filePath, (err, data) => {
-        res.writeHead(200,{'Content-Type': 'text/html; charset=utf-8'});
-        res.write(data);
-        res.end();
-    });
+    fs.readFile(filepath, function(err,data){
+        res.writeHead(200,{'Content-Type': 'text/html; charset=utf-8'})
+        if(err){
+            res.write(err)
+        }else{
+            res.write(data)
+        }
+        res.end()
+    })
 }).listen(7777);
