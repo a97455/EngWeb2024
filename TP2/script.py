@@ -25,7 +25,6 @@ def createIndexHTML(data):
         # Write end of HTML
         f.write('</body>\n</html>')
 
-    
 
 def htmlFromJson(data,output_folder):
     for city in data['cidades']:
