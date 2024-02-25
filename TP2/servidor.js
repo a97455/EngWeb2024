@@ -11,13 +11,14 @@ http.createServer(function(req,res){
         filepath = "html/" + request.substring(1) + ".html"
     }
 
-    fs.readFile(filepath, function(err,data){
-        res.writeHead(200,{'Content-Type': 'text/html; charset=utf-8'})
-        if(err){
-            res.write(err)
-        }else{
-            res.write(data)
+    fs.readFile(filepath, function(err, data) {
+        if (err) {
+            res.writeHead(500, {'Content-Type': 'text/plain'});
+            res.write(err.toString()); // Convert error to string before writing
+        } else {
+            res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
+            res.write(data);
         }
-        res.end()
+        res.end();
     })
 }).listen(7777);
