@@ -12,14 +12,14 @@
 
 2. Serviço que responde aos seguintes pedidos GET:
 
-    1. /filmes
+    - /filmes
 
-    2. /filmes/idFilme
+    - /filmes/idFilme
 
-    3. /generos
+    - /generos
 
-    4. /generos/idGenero
+    - generos/idGenero
 
-    5. /atores
+    - atores
 
-    6. /atores/idAtor
+    - atores/idAtor
