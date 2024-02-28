@@ -17,18 +17,6 @@ def processar_json(input_file):
             if genero not in generos:
                 generos[genero] = {'id': len(generos)+1, 'name': genero}
     
-    for filme in filmes:
-        novo_cast = {}
-        for ator in filme['cast']:
-            novo_cast[atores[ator]['id']] = ator
-        filme['cast'] = novo_cast
-
-        novo_generos = {}
-        for genero in filme['genres']:
-            novo_generos[generos[genero]['id']] = genero
-        filme['genres'] = novo_generos
-
-    
     data['atores'] = list(atores.values())
     data['generos'] = list(generos.values())
     

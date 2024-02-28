@@ -20,6 +20,6 @@
 
     - generos/idGenero
 
-    - atores
+    - /atores
 
-    - atores/idAtor
+    - /atores/idAtor
