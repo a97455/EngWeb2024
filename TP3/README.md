@@ -18,8 +18,8 @@
 
     - /generos
 
-    - generos/idFilme
+    - generos/idGenero
 
     - atores
 
-    - atores/idFilme
+    - atores/idAtor
