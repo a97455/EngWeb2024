@@ -24,9 +24,8 @@ function createListaFilmesHTML(filmes){
                         <th>Título</th>
                         <th>Ano</th>
                         <th>Elenco</th>
-                        <th>Gênero</th>
-                    </tr>
-    `
+                        <th>Género</th>
+                    </tr>`
     filmes.forEach(function(filme){
         pagHTML += `
                     <tr>
@@ -72,7 +71,7 @@ function createFilmeHTML(filme){
                         <th>Título</th>
                         <th>Ano</th>
                         <th>Elenco</th>
-                        <th>Gênero</th>
+                        <th>Género</th>
                     </tr>
                     <tr>
                         <td>${filme.title}</td>
@@ -94,8 +93,88 @@ function createFilmeHTML(filme){
 }
 
 
+function createListaGenerosHTML(generos){
+    pagHTML = `
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Lista de Géneros</title>
+        <link rel="stylesheet" href="/w3.css"/>
+    </head>
+    <body>
+        <div class="w3-card-4">
+            <header class="w3-container w3-blue">
+              <h1>Lista de Géneros</h1>
+            </header>
+            
+            <div class="w3-container">
+                <table class="w3-table w3-striped">
+                    <tr>
+                        <th>Nome</th>
+                    </tr>`
+    generos.forEach(function(genero){
+        pagHTML += `
+                    <tr>
+                        <td><a href='/generos/${genero.id}'>${genero.name}</a></td>
+                    </tr>`
+    });
+    pagHTML += `
+                </table>
+            </div>
+            
+            <footer class="w3-container w3-blue">
+              <h5>TPC3 in EngWeb2024</h5>
+            </footer>
+        </div>
+    </body>
+</html>`
+    
+    return pagHTML
+}
+
+
+function createGeneroHTML(genero){
+    pagHTML=`
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>${genero.name}</title>
+        <link rel="stylesheet" href="/w3.css"/>
+    </head>
+    <body>
+        <div class="w3-card-4">
+            <header class="w3-container w3-blue">
+                <h1>${genero.name}</h1>
+            </header>
+            
+            <div class="w3-container">
+                <table class="w3-table w3-striped">
+                    <tr>
+                        <th>Nome</th>
+                    </tr>
+                    <tr>
+                        <td>${genero.name}</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <footer class="w3-container w3-blue">
+                <h5>TPC3 in EngWeb2024</h5>
+            </footer>
+        </div>
+    </body>
+</html>`
+
+    return pagHTML
+}
+
+
 http.createServer(function (req, res) {
     var regexFilmes = /^\/filmes\/[a-z0-9]{24}$/
+    var regexGeneros = /^\/generos\/\d+$/
+
     var q = url.parse( req.url, true)
     if(q.pathname == '/'){
         fs.readFile('index.html', function(erro, dados) {
@@ -124,6 +203,36 @@ http.createServer(function (req, res) {
             .then(function(resp){
                 dados = resp.data
                 pagHTML = createFilmeHTML(dados)
+                res.writeHead(200, {'Content-Type': 'text/html'})
+                res.write(pagHTML)
+                res.end()
+            })
+            .catch(function(erro){
+                res.writeHead(500, {'Content-Type': 'text/html'})
+                res.write("<pre>" + erro + "</pre>")
+                res.end()
+            })
+    }
+    else if(q.pathname == '/generos'){
+        axios.get('http://localhost:3000/generos')
+            .then(function(resp){
+                dados = resp.data
+                pagHTML = createListaGenerosHTML(dados)
+                res.writeHead(200, {'Content-Type': 'text/html'})
+                res.write(pagHTML)
+                res.end()
+            })
+            .catch(function(erro){
+                res.writeHead(500, {'Content-Type': 'text/html'})
+                res.write("<pre>" + erro + "</pre>")
+                res.end()
+            })
+    }
+    else if(regexGeneros.test(q.pathname)){
+        axios.get('http://localhost:3000'+q.pathname)
+            .then(function(resp){
+                dados = resp.data
+                pagHTML = createGeneroHTML(dados)
                 res.writeHead(200, {'Content-Type': 'text/html'})
                 res.write(pagHTML)
                 res.end()
