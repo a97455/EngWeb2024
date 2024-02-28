@@ -12,21 +12,10 @@ def processar_json(input_file):
     for filme in filmes:
         for ator in filme['cast']:
             if ator not in atores:
-                atores[ator] = {'id': len(atores)+1, 'actor': ator}
+                atores[ator] = {'id': len(atores)+1, 'name': ator}
         for genero in filme['genres']:
             if genero not in generos:
-                generos[genero] = {'id': len(generos)+1, 'genre': genero}
-
-    for filme in filmes:
-        castList = []
-        genresList = []
-        for ator in filme['cast']:
-            castList.append(atores[ator])
-        for genero in filme['genres']:
-            genresList.append(generos[genero])
-        
-        filme['cast'] = castList
-        filme['genres'] = genresList
+                generos[genero] = {'id': len(generos)+1, 'name': genero}
     
     data['atores'] = list(atores.values())
     data['generos'] = list(generos.values())
