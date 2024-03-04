@@ -5,20 +5,31 @@ def processar_json(input_file):
     with open(input_file, 'r') as f:
         data = json.load(f)
     
-    atores = {}
-    generos = {}
-    filmes = data['filmes']
+    atoresDict = {}
+    generosDict = {}
+    filmesDict = data['filmes']
     
-    for filme in filmes:
+    for filme in filmesDict:
         for ator in filme['cast']:
-            if ator not in atores:
-                atores[ator] = {'id': len(atores)+1, 'name': ator}
+            if ator not in atoresDict:
+                atoresDict[ator] = {'id': len(atoresDict)+1, 'name': ator}
         for genero in filme['genres']:
-            if genero not in generos:
-                generos[genero] = {'id': len(generos)+1, 'name': genero}
+            if genero not in generosDict:
+                generosDict[genero] = {'id': len(generosDict)+1, 'name': genero}
     
-    data['atores'] = list(atores.values())
-    data['generos'] = list(generos.values())
+    data['atores'] = list(atoresDict.values())
+    data['generos'] = list(generosDict.values())
+
+    for filme in filmesDict:
+        newCast = []
+        newGenders = []
+        for ator in filme['cast']:
+            newCast.append(atoresDict[ator])
+        for genero in filme['genres']:
+            newGenders.append(generosDict[genero])
+        
+        filme['cast'] = newCast
+        filme['genres'] = newGenders
     
     return data
 
