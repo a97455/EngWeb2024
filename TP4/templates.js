@@ -79,6 +79,8 @@ exports.compositorFormPage = function(d){
                         <input class="w3-input w3-round" type="text" name="id"/>
                         <label>Name</label>
                         <input class="w3-input w3-round" type="text" name="nome"/>
+                        <label>Bio</label>
+                        <input class="w3-input w3-round" type="text" name="bio"/>
                         <label>Data de Nascimento</label>
                         <input class="w3-input w3-round" type="text" name="dataNasc"/>
                         <label>Data de Obito</label>
