@@ -33,8 +33,8 @@ exports.compositoresListPage = function(slist, d){
                                 <a href="/compositores/${slist[i].id}">${slist[i].nome}</a>
                             </td>
                             <td>${slist[i].bio}</td>
-                            <td>${JSON.stringify(slist[i].dataNasc)}</td>
-                            <td>${JSON.stringify(slist[i].dataObito)}</td>
+                            <td>${slist[i].dataNasc}</td>
+                            <td>${slist[i].dataObito}</td>
                             <td>
                                 [<a href="/compositores/edit/${slist[i].id}">Edit</a>]
                                 [<a href="/compositores/delete/${slist[i].id}">Delete</a>]
@@ -175,36 +175,37 @@ exports.studentFormEditPage = function(a, d){
 
 // ---------------Student's Page--------------------------------
 // Change and adapt to current dataset...
-exports.studentPage = function( aluno, d ){
+exports.compositorPage = function(compositor, d ){
     var pagHTML = `
-<html>
-    <head>
-        <title>Aluno: ${aluno.id}</title>
-        <meta charset="utf-8"/>
-        <link rel="icon" href="favicon.png"/>
-        <link rel="stylesheet" href="w3.css"/>
-    </head>
-    <body>
-        <div class="w3-card-4">
-            <header class="w3-container w3-teal">
-                <h1>Aluno ${aluno.id}</h1>
-            </header>
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <title>${compositor.nome}</title>
+            <meta charset="utf-8"/>
+            <link rel="icon" href="favicon.jpg"/>
+            <link rel="stylesheet" href="w3.css"/>
+        </head>
+        <body>
+            <div class="w3-card-4">
+                <header class="w3-container w3-teal">
+                    <h1>${compositor.nome}</h1>
+                </header>
 
-            <div class="w3-container">
-                <ul class="w3-ul w3-card-4" style="width:50%">
-                    <li><b>Nome: </b> ${aluno.nome}</li>
-                    <li><b>Número: </b> ${aluno.id}</li>
-                    <li><b>Git (link): </b> <a href="${aluno.gitlink}">${aluno.gitlink}</a></li>
-                </ul>
+                <div class="w3-container">
+                    <ul class="w3-ul w3-card-4" style="width:50%">
+                        <li><b>Nome: </b> ${compositor.nome}</li>
+                        <li><b>Bio: </b> ${compositor.bio}</li>
+                        <li><b>Data de Nascimento: </b> ${compositor.dataNasc}</li>
+                        <li><b>Data de Obito: </b> ${compositor.dataNasc}</li>
+                    </ul>
+                </div>
+        
+                <footer class="w3-container w3-teal">
+                    <address>Gerado por aluno::EngWeb2024 em ${d} - [<a href="/compositores">Voltar</a>]</address>
+                </footer>
             </div>
-    
-            <footer class="w3-container w3-teal">
-                <address>Gerado por aluno::EngWeb2024 em ${d} - [<a href="/alunos">Voltar</a>]</address>
-            </footer>
-        </div>
-    </body>
-</html>
-    `
+        </body>
+    </html>`
     return pagHTML
 }
 
