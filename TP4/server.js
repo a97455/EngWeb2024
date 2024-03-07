@@ -58,10 +58,10 @@ var alunosServer = http.createServer((req, res) => {
                             res.end(templates.errorPage(erro,d))
                         })
                 }
-                // GET /alunos/registo --------------------------------------------------------------------
-                else if (req.url=='/alunos/registo'){
+                // GET /compositores/registo --------------------------------------------------------------------
+                else if (req.url=='/compositores/registo'){
                     res.writeHead(200, {'Content-Type': 'text/html'})
-                    res.end(templates.studentFormPage(d))
+                    res.end(templates.compositorFormPage(d))
                 }
                 // GET /alunos/edit/:id --------------------------------------------------------------------
                 else if (/\/alunos\/edit\/A[0-9]+/.test(req.url)){
