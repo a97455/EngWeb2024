@@ -63,28 +63,28 @@ var alunosServer = http.createServer((req, res) => {
                     res.writeHead(200, {'Content-Type': 'text/html'})
                     res.end(templates.compositorFormPage(d))
                 }
-                // GET /alunos/edit/:id --------------------------------------------------------------------
-                else if (/\/alunos\/edit\/A[0-9]+/.test(req.url)){
+                // GET /compositores/edit/:id --------------------------------------------------------------------
+                else if (/\/compositores\/edit\/C[0-9]+/.test(req.url)){
                     var partes = req.url.split('/')
-                    idAluno = partes[partes.length-1]
-                    axios.get('http://localhost:3000/alunos/'+idAluno)
-                        .then(function(resposta){
+                    idCompositor = partes[partes.length-1]
+                    axios.get('http://localhost:3000/compositores/'+idCompositor)
+                        .then(function(){
                             res.writeHead(200, {'Content-Type': 'text/html'})
-                            res.end(templates.studentFormEditPage(resposta.data,d))
+                            res.end(templates.compositorFormEditPage(d))
                         })
                         .catch(function(erro){
                             res.writeHead(525, {'Content-Type': 'text/html'})
                             res.end(templates.errorPage(erro,d))
                         })
                 }
-                // GET /alunos/delete/:id --------------------------------------------------------------------
-                else if(/\/alunos\/delete\/A[0-9]+/.test(req.url)){
+                // GET /compositores/delete/:id --------------------------------------------------------------------
+                else if(/\/compositores\/delete\/C[0-9]+/.test(req.url)){
                     var partes = req.url.split('/')
-                    idAluno = partes[partes.length-1]
-                    axios.delete('http://localhost:3000/alunos/'+idAluno)
+                    isCompositor = partes[partes.length-1]
+                    axios.delete('http://localhost:3000/compositores/'+isCompositor)
                         .then(function(resposta){
                             res.writeHead(200, {'Content-Type': 'text/html'})
-                            res.end(templates.studentPage(resposta.data,d))
+                            res.end(templates.compositorPage(resposta.data,d))
                         })
                         .catch(function(erro){
                             res.writeHead(530, {'Content-Type': 'text/html'})
@@ -98,14 +98,14 @@ var alunosServer = http.createServer((req, res) => {
                 }
                 break
             case "POST":
-                // POST /alunos/registo --------------------------------------------------------------------
-                if (req.url== '/alunos/registo'){
+                // POST /compositores/registo --------------------------------------------------------------------
+                if (req.url== '/compositores/registo'){
                     collectRequestBodyData(req, function(result){
                         if(result){
-                            axios.post("http://localhost:3000/alunos",result)
+                            axios.post("http://localhost:3000/compositores",result)
                                 .then(function(resposta){
                                     res.writeHead(201, {'Content-Type': 'text/html'})
-                                    res.end(templates.studentPage(resposta.data,d))
+                                    res.end(templates.compositorPage(resposta.data,d))
                                 })
                                 .catch(function(erro){
                                     res.writeHead(520, {'Content-Type': 'text/html'})
@@ -117,17 +117,16 @@ var alunosServer = http.createServer((req, res) => {
                         }
                     })
                 }
-                // POST /alunos/edit/:id --------------------------------------------------------------------
-                else if (/\/alunos\/edit\/A[0-9]+/.test(req.url)){
+                // POST /compositores/edit/:id --------------------------------------------------------------------
+                else if (/\/compositores\/edit\/C[0-9]+/.test(req.url)){
                     var partes = req.url.split('/')
-                    idAluno = partes[partes.length-1]
-                    console.log(idAluno)
+                    idCompositor = partes[partes.length-1]
                     collectRequestBodyData(req, function(result){
                         if(result){
-                            axios.put("http://localhost:3000/alunos/"+idAluno,result)
+                            axios.put("http://localhost:3000/compositores/"+idCompositor,result)
                                 .then(function(resposta){
                                     res.writeHead(201, {'Content-Type': 'text/html'})
-                                    res.end(templates.studentPage(resposta.data,d))
+                                    res.end(templates.compositorPage(resposta.data,d))
                                 })
                                 .catch(function(erro){
                                     res.writeHead(520, {'Content-Type': 'text/html'})
