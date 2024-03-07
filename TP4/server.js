@@ -1,7 +1,3 @@
-// alunos_server.js
-// EW2024 : 04/03/2024
-// by jcr
-
 var http = require('http')
 var axios = require('axios')
 const { parse } = require('querystring');
@@ -26,7 +22,6 @@ function collectRequestBodyData(request, callback) {
 }
 
 // Server creation
-
 var alunosServer = http.createServer((req, res) => {
     // Logger: what was requested and when it was requested
     var d = new Date().toISOString().substring(0, 16)
@@ -39,12 +34,12 @@ var alunosServer = http.createServer((req, res) => {
     else{
         switch(req.method){
             case "GET": 
-                // GET /alunos --------------------------------------------------------------------
-                if (req.url=='/alunos'){
-                    axios.get('http://localhost:3000/alunos')
+                // GET /compositores --------------------------------------------------------------------
+                if (req.url=='/compositores'){
+                    axios.get('http://localhost:3000/compositores')
                         .then(function(resposta){
                             res.writeHead(200, {'Content-Type': 'text/html'})
-                            res.end(templates.studentsListPage(resposta.data,d))
+                            res.end(templates.compositoresListPage(resposta.data,d))
                         })
                         .catch(function(erro){
                             res.writeHead(520, {'Content-Type': 'text/html'})

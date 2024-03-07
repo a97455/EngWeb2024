@@ -1,57 +1,56 @@
-exports.studentsListPage = function(slist, d){
+exports.compositoresListPage = function(slist, d){
     var pagHTML = `
     <!DOCTYPE html>
     <html>
         <head>
             <meta charset="UTF-8"/>
-            <link rel="icon" href="favicon.png"/>
+            <link rel="icon" href="favicon.jpg"/>
             <link rel="stylesheet" href="w3.css"/>
-            <title>Student Management</title>
+            <title>Compositores</title>
         </head>
+
         <body>
             <div class="w3-card-4">
 
                 <header class="w3-container w3-teal">
-                    <h1>Students List
+                    <h1>Compositores
                     <a class="w3-btn w3-round w3-grey" href="/alunos/registo">+</a>
                     </h1>
-                    
                 </header>
         
                 <div class="w3-container">
                     <table class="w3-table-all">
                         <tr>
-                            <th>Id</th><th>Name</th><th>GitLink</th>
+                            <th>Name</th>
+                            <th>Bio</th>
+                            <th>Data de Nascimento</th>
+                            <th>Data de Obito</th>
                             <th>Actions</th>
-                        </tr>
-                `
+                        </tr>`
     for(let i=0; i < slist.length ; i++){
-        pagHTML += `
-                <tr>
-                    <td>${slist[i].id}</td>
-                    <td>
-                        <a href="/alunos/${slist[i].id}">
-                            ${slist[i].nome}
-                        </a>
-                    </td>
-                    <td>${slist[i].gitlink}</td>
-                    <td>
-                        [<a href="/alunos/edit/${slist[i].id}">Edit</a>][<a href="/alunos/delete/${slist[i].id}">Delete</a>]
-                    </td>
-                </tr>
-        `
+        pagHTML +=      `<tr>
+                            <td>
+                                <a href="/compositores/${slist[i].id}">${slist[i].nome}</a>
+                            </td>
+                            <td>${slist[i].bio}</td>
+                            <td>${JSON.stringify(slist[i].dataNasc)}</td>
+                            <td>${JSON.stringify(slist[i].dataObito)}</td>
+                            <td>
+                                [<a href="/compositores/edit/${slist[i].id}">Edit</a>]
+                                [<a href="/compositores/delete/${slist[i].id}">Delete</a>]
+                            </td>
+                        </tr>`
     }
 
-    pagHTML += `
-            </table>
-            </div>
+    pagHTML +=      `</table>
+                </div>
+
                 <footer class="w3-container w3-blue">
                     <h5>Generated in EngWeb2024 in ${d}</h5>
                 </footer>
             </div>
         </body>
-    </html>
-    `
+    </html>`
     return pagHTML
 }
 
