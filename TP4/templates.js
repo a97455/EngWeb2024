@@ -1,4 +1,4 @@
-exports.compositoresListPage = function(slist, d){
+exports.compositoresListPage = function(compositores,periodos,d){
     var pagHTML = `
     <!DOCTYPE html>
     <html>
@@ -28,18 +28,22 @@ exports.compositoresListPage = function(slist, d){
                             <th>Periodo</th>
                             <th>Actions</th>
                         </tr>`
-    for(let i=0; i < slist.length ; i++){
+    for(let i=0; i < compositores.length ; i++){
         pagHTML +=      `<tr>
                             <td>
-                                <a href="/compositores/${slist[i].id}">${slist[i].nome}</a>
+                                <a href="/compositores/${compositores[i].id}">${compositores[i].nome}</a>
                             </td>
-                            <td>${slist[i].bio}</td>
-                            <td>${slist[i].dataNasc}</td>
-                            <td>${slist[i].dataObito}</td>
-                            <td>${slist[i].periodo.name}</td>
-                            <td>
-                                [<a href="/compositores/edit/${slist[i].id}">Edit</a>]
-                                [<a href="/compositores/delete/${slist[i].id}">Delete</a>]
+                            <td>${compositores[i].bio}</td>
+                            <td>${compositores[i].dataNasc}</td>
+                            <td>${compositores[i].dataObito}</td>`
+        for(let j=0; j < periodos.length ; j++){
+            if (periodos[j].id == compositores[i].periodo){
+                pagHTML+=   `<td>${periodos[j].name}</td>`
+            }
+        }
+        pagHTML+=           `<td>
+                                [<a href="/compositores/edit/${compositores[i].id}">Edit</a>]
+                                [<a href="/compositores/delete/${compositores[i].id}">Delete</a>]
                             </td>
                         </tr>`
     }

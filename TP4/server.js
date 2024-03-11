@@ -37,9 +37,16 @@ var alunosServer = http.createServer((req, res) => {
                 // GET /compositores --------------------------------------------------------------------
                 if (req.url=='/compositores'){
                     axios.get('http://localhost:3000/compositores')
-                        .then(function(resposta){
-                            res.writeHead(200, {'Content-Type': 'text/html'})
-                            res.end(templates.compositoresListPage(resposta.data,d))
+                        .then(function(compositores){
+                            axios.get('http://localhost:3000/periodos')
+                                .then(function(periodos){
+                                    res.writeHead(200, {'Content-Type': 'text/html'})
+                                    res.end(templates.compositoresListPage(compositores.data,periodos.data,d))
+                                })
+                                .catch(function(erro){
+                                    res.writeHead(521, {'Content-Type': 'text/html'})
+                                    res.end(templates.errorPage(erro,d))
+                                })
                         })
                         .catch(function(erro){
                             res.writeHead(520, {'Content-Type': 'text/html'})

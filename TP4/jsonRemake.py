@@ -10,12 +10,12 @@ def processar_json(input_file):
     
     for compositor in compositoresDict:
         if compositor['periodo'] not in periodosDict:
-            periodosDict[compositor['periodo']] = {'id': len(periodosDict)+1, 'name': compositor['periodo']}
+            periodosDict[compositor['periodo']] = {'id': str(len(periodosDict)+1), 'name': compositor['periodo']}
     
     data['periodos'] = list(periodosDict.values())
 
     for compositor in compositoresDict:
-        compositor['periodo'] = periodosDict[compositor['periodo']]
+        compositor['periodo'] = str(periodosDict[compositor['periodo']]['id'])
 
     return data
 
