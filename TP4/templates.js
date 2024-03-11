@@ -153,7 +153,7 @@ exports.compositorFormEditPage = function(periodos,d){
 
 // ---------------Student's Page--------------------------------
 // Change and adapt to current dataset...
-exports.compositorPage = function(compositor, d ){
+exports.compositorPage = function(compositor,periodo,d){
     var pagHTML = `
     <!DOCTYPE html>
     <html>
@@ -175,7 +175,7 @@ exports.compositorPage = function(compositor, d ){
                         <li><b>Bio: </b> ${compositor.bio}</li>
                         <li><b>Data de Nascimento: </b> ${compositor.dataNasc}</li>
                         <li><b>Data de Obito: </b> ${compositor.dataNasc}</li>
-                        <li><b>Periodo: </b> ${compositor.periodo.name}</li>
+                        <li><b>Periodo: </b> ${periodo.name}</li>
                     </ul>
                 </div>
         
