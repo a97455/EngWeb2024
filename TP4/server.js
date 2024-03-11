@@ -60,17 +60,22 @@ var alunosServer = http.createServer((req, res) => {
                 }
                 // GET /compositores/registo --------------------------------------------------------------------
                 else if (req.url=='/compositores/registo'){
-                    res.writeHead(200, {'Content-Type': 'text/html'})
-                    res.end(templates.compositorFormPage(d))
+                    axios.get('http://localhost:3000/periodos')
+                        .then(function(resposta){
+                            res.writeHead(200, {'Content-Type': 'text/html'})
+                            res.end(templates.compositorFormPage(resposta.data,d))
+                        })
+                        .catch(function(erro){
+                            res.writeHead(550, {'Content-Type': 'text/html'})
+                            res.end(templates.errorPage(erro,d))
+                        })
                 }
                 // GET /compositores/edit/:id --------------------------------------------------------------------
                 else if (/\/compositores\/edit\/C[0-9]+/.test(req.url)){
-                    var partes = req.url.split('/')
-                    idCompositor = partes[partes.length-1]
-                    axios.get('http://localhost:3000/compositores/'+idCompositor)
-                        .then(function(){
+                    axios.get('http://localhost:3000/periodos')
+                        .then(function(resposta){
                             res.writeHead(200, {'Content-Type': 'text/html'})
-                            res.end(templates.compositorFormEditPage(d))
+                            res.end(templates.compositorFormEditPage(resposta.data,d))
                         })
                         .catch(function(erro){
                             res.writeHead(525, {'Content-Type': 'text/html'})

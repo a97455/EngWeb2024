@@ -57,7 +57,7 @@ exports.compositoresListPage = function(slist, d){
 }
 
 
-exports.compositorFormPage = function(d){
+exports.compositorFormPage = function(periodos,d) {
     var pagHTML = `
     <!DOCTYPE html>
     <html>
@@ -75,18 +75,20 @@ exports.compositorFormPage = function(d){
             
                 <form class="w3-container" method="POST">
                     <fieldset>
-                        <label>Id</label>
+                        <label><strong>Id: </strong></label>
                         <input class="w3-input w3-round" type="text" name="id"/>
-                        <label>Name</label>
+                        <label><strong>Name: </strong></label>
                         <input class="w3-input w3-round" type="text" name="nome"/>
-                        <label>Bio</label>
+                        <label><strong>Bio: </strong></label>
                         <input class="w3-input w3-round" type="text" name="bio"/>
-                        <label>Data de Nascimento</label>
+                        <label><strong>Data de Nascimento: </strong></label>
                         <input class="w3-input w3-round" type="text" name="dataNasc"/>
-                        <label>Data de Obito</label>
+                        <label><strong>Data de Obito: </strong></label>
                         <input class="w3-input w3-round" type="text" name="dataObito"/>
-                        <label>Periodo</label>
-                        <input class="w3-input w3-round" type="text" name="periodo"/>
+                        <label><strong>Periodo: </strong></label>
+                        <select class="w3-select w3-round" name="periodo">
+                            ${periodos.map(p => `<option value="${p.id}">${p.name}</option>`).join('')}
+                        </select>
                     </fieldset>
                     <button class="w3-btn w3-indigo w3-mb-2" type="submit">Register</button>
                 </form>
@@ -100,7 +102,7 @@ exports.compositorFormPage = function(d){
     return pagHTML
 }
 
-exports.compositorFormEditPage = function(d){
+exports.compositorFormEditPage = function(periodos,d){
     var pagHTML = `
     <!DOCTYPE html>
     <html>
@@ -118,16 +120,20 @@ exports.compositorFormEditPage = function(d){
             
                 <form class="w3-container" method="POST">
                     <fieldset>
-                        <label>Id</label>
+                        <label><strong>Id: </strong></label>
                         <input class="w3-input w3-round" type="text" name="id"/>
-                        <label>Name</label>
+                        <label><strong>Name: </strong></label>
                         <input class="w3-input w3-round" type="text" name="nome"/>
-                        <label>Data de Nascimento</label>
+                        <label><strong>Bio: </strong></label>
+                        <input class="w3-input w3-round" type="text" name="bio"/>
+                        <label><strong>Data de Nascimento: </strong></label>
                         <input class="w3-input w3-round" type="text" name="dataNasc"/>
-                        <label>Data de Obito</label>
+                        <label><strong>Data de Obito: </strong></label>
                         <input class="w3-input w3-round" type="text" name="dataObito"/>
-                        <label>Periodo</label>
-                        <input class="w3-input w3-round" type="text" name="periodo"/>
+                        <label><strong>Periodo: </strong></label>
+                        <select class="w3-select w3-round" name="periodo">
+                            ${periodos.map(periodo => `<option value="${periodo.id}">${periodo.name}</option>`).join('')}
+                        </select>
                     </fieldset>
                     <button class="w3-btn w3-indigo w3-mb-2" type="submit">Register</button>
                 </form>
