@@ -103,8 +103,16 @@ var alunosServer = http.createServer((req, res) => {
                     isCompositor = partes[partes.length-1]
                     axios.delete('http://localhost:3000/compositores/'+isCompositor)
                         .then(function(resposta){
-                            res.writeHead(200, {'Content-Type': 'text/html'})
-                            res.end(templates.compositorPage(resposta.data,d))
+                            var compositor = resposta.data
+                            axios.get('http://localhost:3000/periodos/'+compositor.periodo)
+                            .then(function(periodo){
+                                res.writeHead(200, {'Content-Type': 'text/html'})
+                                res.end(templates.compositorPage(compositor,periodo.data,d))
+                            })
+                            .catch(function(erro){
+                                res.writeHead(521, {'Content-Type': 'text/html'})
+                                res.end(templates.errorPage(erro,d))
+                            })
                         })
                         .catch(function(erro){
                             res.writeHead(530, {'Content-Type': 'text/html'})
@@ -124,8 +132,16 @@ var alunosServer = http.createServer((req, res) => {
                         if(result){
                             axios.post("http://localhost:3000/compositores",result)
                                 .then(function(resposta){
-                                    res.writeHead(201, {'Content-Type': 'text/html'})
-                                    res.end(templates.compositorPage(resposta.data,d))
+                                    var compositor = resposta.data
+                                    axios.get('http://localhost:3000/periodos/'+compositor.periodo)
+                                    .then(function(periodo){
+                                        res.writeHead(200, {'Content-Type': 'text/html'})
+                                        res.end(templates.compositorPage(compositor,periodo.data,d))
+                                    })
+                                    .catch(function(erro){
+                                        res.writeHead(521, {'Content-Type': 'text/html'})
+                                        res.end(templates.errorPage(erro,d))
+                                    })
                                 })
                                 .catch(function(erro){
                                     res.writeHead(520, {'Content-Type': 'text/html'})
@@ -145,8 +161,16 @@ var alunosServer = http.createServer((req, res) => {
                         if(result){
                             axios.put("http://localhost:3000/compositores/"+idCompositor,result)
                                 .then(function(resposta){
-                                    res.writeHead(201, {'Content-Type': 'text/html'})
-                                    res.end(templates.compositorPage(resposta.data,d))
+                                    var compositor = resposta.data
+                                    axios.get('http://localhost:3000/periodos/'+compositor.periodo)
+                                    .then(function(periodo){
+                                        res.writeHead(200, {'Content-Type': 'text/html'})
+                                        res.end(templates.compositorPage(compositor,periodo.data,d))
+                                    })
+                                    .catch(function(erro){
+                                        res.writeHead(521, {'Content-Type': 'text/html'})
+                                        res.end(templates.errorPage(erro,d))
+                                    })
                                 })
                                 .catch(function(erro){
                                     res.writeHead(520, {'Content-Type': 'text/html'})
