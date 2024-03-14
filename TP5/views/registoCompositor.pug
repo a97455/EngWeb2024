@@ -1,0 +1,33 @@
+extends layout
+
+block content
+    .w3-card-4
+        header.w3-container.w3-indigo
+            h2= titulo
+
+        form.w3-container(method="POST")
+            fieldset
+                label 
+                    strong Id:
+                input.w3-input.w3-round(type="text" name="id")
+                label 
+                    strong Name:
+                input.w3-input.w3-round(type="text" name="nome")
+                label 
+                    strong Bio:
+                input.w3-input.w3-round(type="text" name="bio")
+                label 
+                    strong Data de Nascimento:
+                input.w3-input.w3-round(type="text" name="dataNasc")
+                label 
+                    strong Data de Obito:
+                input.w3-input.w3-round(type="text" name="dataObito")
+                label 
+                    strong Periodo:
+                select.w3-select.w3-round(name="periodo")
+                    each periodo in periodos
+                        option(value=periodo.id)= periodo.name
+            button.w3-btn.w3-indigo.w3-mb-2(type="submit") Register
+
+        footer.w3-container.w3-indigo
+            address Gerado por EngWeb2024 em #{data}
