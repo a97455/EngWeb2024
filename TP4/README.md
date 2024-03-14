@@ -14,4 +14,3 @@ Criar uma aplicação para a gestão de uma base de dados de compositores musica
 
 - Criar uma aplicação Web com as seguintes caraterísticas:
     1. CRUD sobre compositores;
-    2. CRUD sobre periodos musicais.
