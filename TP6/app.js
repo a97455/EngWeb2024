@@ -3,8 +3,17 @@ var express = require('express');
 var path = require('path');
 var logger = require('morgan');
 
-var compositoresRouter = require('./routes/compositores');
+//MongoDB conection
+var mongoose = require('mongoose')
+var mongoDB = 'mongodb://127.0.0.1/compositores'
+mongoose.connect(mongoDB,{useNewUrlParser: true, useUnifiedTopology: true})
+var db = mongoose.connection
+db.on('error',console.error.bind(console,'Erro de conexão ao MongoDB'))
+db.once('open', function(){
+  console.log('Conexão ao MongoDB realizado com sucesso')
+})
 
+var compositoresRouter = require('./routes/compositores');
 var app = express();
 
 // view engine setup
@@ -14,7 +23,6 @@ app.set('view engine', 'pug');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', compositoresRouter);
 
