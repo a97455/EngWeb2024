@@ -25,7 +25,7 @@ router.get('/compositores/:id', function(req, res) {
 });
 
 
-router.post('/compositores', function(req, res) {
+router.post('/compositores/registo', function(req, res) {
   Compositor.insert(req.body)
   .then(function(data){
     res.jsonp(data)
@@ -36,8 +36,19 @@ router.post('/compositores', function(req, res) {
 });
 
 
-router.put('/compositores/:id', function(req, res) {
+router.put('/compositores/edit/:id', function(req, res) {
   Compositor.update(req.params.id,req.body)
+  .then(function(data){
+    res.jsonp(data)
+  })
+  .catch(function(erro){
+    res.jsonp(erro)
+  })
+});
+
+
+router.delete('/compositores/delete/:id', function(req, res) {
+  Compositor.delete(req.params.id)
   .then(function(data){
     res.jsonp(data)
   })

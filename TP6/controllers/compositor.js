@@ -17,5 +17,5 @@ module.exports.update = function(id,compositor){
 }
 
 module.exports.delete = function(id){
-    return Compositor.delete(id)
+    return Compositor.deleteMany({_id:id})
 }
