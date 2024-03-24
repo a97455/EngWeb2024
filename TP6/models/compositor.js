@@ -9,4 +9,4 @@ var compositorSchema = new mongoose.Schema({
     periodo: String
 }, {versionKey: false})
 
-module.exports = mongoose.model('compositor',compositorSchema)
+module.exports = mongoose.model('compositores',compositorSchema) //nome correspondente à collection na db
