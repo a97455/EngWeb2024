@@ -6,7 +6,7 @@ var logger = require('morgan');
 //MongoDB conection
 var mongoose = require('mongoose')
 var mongoDB = 'mongodb://127.0.0.1/compositores'
-mongoose.connect(mongoDB,{useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect(mongoDB)
 var db = mongoose.connection
 db.on('error',console.error.bind(console,'Erro de conexão ao MongoDB'))
 db.once('open', function(){
@@ -15,10 +15,6 @@ db.once('open', function(){
 
 var compositoresRouter = require('./routes/compositores');
 var app = express();
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
 
 app.use(logger('dev'));
 app.use(express.json());
