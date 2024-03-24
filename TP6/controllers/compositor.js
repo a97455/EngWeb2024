@@ -5,7 +5,7 @@ module.exports.list = function(){
 }
 
 module.exports.findById = function(id){
-    return Compositor.findOne({id: id}).exec()
+    return Compositor.findOne({_id: id}).exec()
 }
 
 module.exports.insert = function(compositor){
