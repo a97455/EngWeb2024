@@ -45,4 +45,4 @@ const pessoaSchema = new mongoose.Schema({
     atributos: atributosSchema
 }, { versionKey: false });
 
-module.exports = mongoose.model('pessoa',pessoaSchema) //nome correspondente à collection na db
+module.exports = mongoose.model('pessoas',pessoaSchema) //nome correspondente à collection na db
